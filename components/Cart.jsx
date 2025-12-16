@@ -6,7 +6,7 @@ export default function Cart (){
     return(
         <div>
             <Link href={'/cart'}> 
-                <i class="fa-solid fa-cart-flatbed-suitcase"></i>
+                <i className="fa-solid fa-cart-flatbed-suitcase"></i>
             </Link>
         </div>
     )

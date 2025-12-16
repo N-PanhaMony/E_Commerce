@@ -20,9 +20,12 @@ export default function RootLayout({ children }) {
           <header>
             <div className="header-content">
               <Link href={'/'}>
-                <h2>EStore</h2>
+                <h1>EStore</h1>
               </Link>
-              <Cart/>
+              <p className="mid-text">testng</p>
+              <div className="cart">
+                <Cart/>
+              </div>
             </div>
           </header>
           <main>
