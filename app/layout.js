@@ -6,42 +6,44 @@ import Cart from "@/components/Cart";
 import Email from "@/components/Email";
 
 export const metadata = {
-  title: "E_Commerce",
-  description: "",
+  title: "AngkorAi",
+  description: "Shop Khmer Temple paintings and stickers online.",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Head/>
+      <Head />
       <body>
-        <div id="portal"/>
+        <div id="portal" />
         <div id="app">
           <header>
             <div className="header-content">
               <Link href={'/'}>
-                <h1>EStore</h1>
+                <h1>AngkorAi</h1>
               </Link>
-              <p className="mid-text">testng</p>
+              <p className="mid-text">Explore Khmer Temple Paintings & Stickers</p>
               <div className="cart">
-                <Cart/>
+                <Cart />
               </div>
             </div>
           </header>
+
           <main>
             {children}
           </main>
+
           <footer>
             <div className="email-container">
-              <h5>Any informaton & feedback</h5>
-              <Email/>
+              <h5>Any information & feedback</h5>
+              <Email />
             </div>
 
             <div className="link-container">
               <div>
                 <h3>Team</h3>
-                <Link href={'/'}>Our Team</Link>
-                <Link href={'/'}>Developer</Link>
+                <Link href={'/team'}>Our Team</Link>
+                <Link href={'/developer'}>Developer</Link>
               </div>
               <div>
                 <h3>Store</h3>
@@ -50,17 +52,24 @@ export default function RootLayout({ children }) {
               </div>
               <div>
                 <h3>Support</h3>
-                <Link href={'/'}>Contect</Link>
+                <Link href={'/contact'}>Contact</Link>
               </div>
             </div>
 
             <div className="socials">
-                <p>© <a href="https:" target="_blank">MoNi</a> 2025<br />Built with NextJS & <a target="_blank" href="https://www.fantacss.smoljames.com">FantaCSS</a> 🔥</p>
-                <div className="social-links">
-                  <Link href={'/'} target="_blank"><i className="fa-brands fa-github"></i></Link>
-                  <Link href={'/'} target="_blank"><i className="fa-brands fa-linkedin"></i></Link>
-                </div>
+              <p>
+                © {new Date().getFullYear()} <a href="https://.com" target="_blank">MoNi</a><br />
+                Built with NextJS & <a target="_blank" href="https://www.fantacss.smoljames.com">FantaCSS</a> 🔥
+              </p>
+              <div className="social-links">
+                <Link href={'https://github.com/'} target="_blank">
+                  <i className="fa-brands fa-github" aria-label="GitHub"></i>
+                </Link>
+                <Link href={'https://linkedin.com/in/'} target="_blank">
+                  <i className="fa-brands fa-linkedin" aria-label="LinkedIn"></i>
+                </Link>
               </div>
+            </div>
           </footer>
         </div>
       </body>

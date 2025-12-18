@@ -3,40 +3,36 @@
 export default function Products(){
 
     const Description = {
-        Docker: "aaaaaaaa",
-        data2: "aaaaaaaa",
-        data3: "aaaaaaaa",
-        data4: "aaaaaaaa",
-        data5: "aaaaaaaa",
-        data6: "aaaaaaaa",
-        data7: "aaaaaaaa",
-        data8: "aaaaaaaa",
-        data9: "aaaaaaaa",
-
+        docker: "A beautiful Angkor Wat temple sticker to decorate your belongings.",
+        Bayon_Sticker: "Sticker featuring Bayon's iconic smiling faces.",
+        Ta_Prohm_Sticker: "Ta Prohm temple sticker with its famous tree-covered ruins.",
+        Banteay_Srei_Sticker: "Intricate carvings of Banteay Srei in sticker form.",
+        Preah_Koan_Sticker: "Classic Khmer temple architecture sticker for collectors.",
     }
 
     const ArrDes = Object.keys(Description)
     return(
         <>
+            {/* Paintings Section */}
             <div className="section-container">
-                <div className="sectionn-header">
-                    <h2>Shop Our Seletion</h2>
-                    <p>Accessorization</p>
+                <div className="section-header">
+                    <h2>Shop Our Paintings</h2>
+                    <p>Khmer temple inspired artworks</p>
                 </div>
 
                 <div className="planner-content">
                     <div>
                         <button className="img-button">
-                            <img src="low_res/planner.jpeg" alt="high-res-planner"/>
+                            <img src="low_res/angkor_wat_painting.jpeg" alt="Angkor Wat painting"/>
                         </button>
                     </div>
                     <div className="planner-info">
-                        <p className="text-large planner-header">Product header</p>
-                        <h3><span>$</span>9.99</h3>
-                        <p>Description</p>
+                        <p className="text-large planner-header">Angkor Wat at Sunset</p>
+                        <h3><span>$</span>29.99</h3>
+                        <p>Beautiful painting capturing the iconic Angkor Wat temple at sunset.</p>
                         <ul>
-                            <li>title</li>
-                            <li>info</li>
+                            <li>Size: A3</li>
+                            <li>Material: Canvas Print</li>
                         </ul>
                     </div>
                     <div className="purchase-btns">
@@ -45,22 +41,23 @@ export default function Products(){
                 </div>
             </div>
 
+            {/* Stickers Section */}
             <div className="section-container">
-                <div className="sectionn-header">
-                    <h2>Collect Your Favorite</h2>
-                    <p>custom design tech</p>
+                <div className="section-header">
+                    <h2>Collect Your Favorite Stickers</h2>
+                    <p>Khmer temple themed designs</p>
                 </div>
                 <div className="sticker-container">
                     {ArrDes.map((s,sIndex) => {
                         return(
-                            <div key={sIndex} className="card">
+                            <div key={sIndex} className="s-card">
                                 <button className="img-button">
                                     <img src={`low_res/${s}.jpeg`} alt={`${s}-low-res`}/>
                                 </button>
                                 <div className="s-info">
                                     <p className="text-medium">{s.replaceAll('_',' ')} <sticker className="png"></sticker> </p>
                                     <p>{Description[s]}</p>
-                                    <h4><span>$</span>9.99</h4>
+                                    <h4><span>$</span>4.99</h4>
                                     <button>Add to Cart</button>
                                 </div>
                             </div>

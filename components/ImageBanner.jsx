@@ -15,20 +15,22 @@ export default function ImageBanner(){
 
     return(
         <div className="banner-img">
+            {/* Low-res / High-res banner images */}
             <img className="low-res-img" src="low_res/banner.jpeg" alt="banner-low-res" />
-            <img ref={imgRef} className="high-res-img" src="high_res/banner.png" alt="banner-high-res" style={ {opacity: isLoaded ? 1 : 0}} onLoad={() =>{
-                // the callback function executed when the high-res completed loaded
+            <img ref={imgRef} className="high-res-img" src="high_res/banner.png" alt="banner-high-res" style={{opacity: isLoaded ? 1 : 0}} onLoad={() =>{
                 setIsLoaded(true)
             }}/>
+            
+            {/* CTA buttons */}
             <div className="cta-btns-container">
                 <div>
                     <div>
-                        <h3>Welcome to</h3>
-                        <h1>the EStore</h1>
+                        <h3>Discover</h3>
+                        <h1>Khmer Temple Art</h1>
                     </div>
                     <div>
-                        <button>Shop........</button>
-                        <button>Shop........</button>
+                        <button>Shop Paintings</button>
+                        <button>Shop Stickers</button>
                     </div>
                 </div>
             </div>
