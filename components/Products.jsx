@@ -40,7 +40,7 @@ export default function Products(){
                     <p>Khmer temple inspired artworks</p>
                 </div>
 
-                <div className="planner-content">
+                <div className="painting-content">
                     <div>
                         <button  onClick={() =>{
                             setPortalImage('AngkorWat')
@@ -48,8 +48,8 @@ export default function Products(){
                             <img src="low_res/AngkorWat.jpeg" alt="Angkor Wat painting"/>
                         </button>
                     </div>
-                    <div className="planner-info">
-                        <p className="text-large planner-header">Angkor Wat</p>
+                    <div className="painting-info">
+                        <p className="text-large painting-header">Angkor Wat</p>
                         <h3><span>$</span>29.99</h3>
                         <p>Angkor Wat reflected in calm waters</p>
                         <ul>
