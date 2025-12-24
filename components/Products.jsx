@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Portal from "./Portal"
+import { useProducts } from "@/context/ProductContext"
 
 export default function Products(props) {
 
@@ -9,6 +10,9 @@ export default function Products(props) {
 
     const [portalImage, setPortalImage] = useState(null) // For showing high-res image in portal
 
+
+    const {cart} = useProducts()
+    console.log(cart);
     // Do not render if stickers or painting are missing
     if (!stickers.length || !painting) return null
 

@@ -4,6 +4,7 @@ import Head from "./head";
 import Link from "next/link";
 import Cart from "@/components/Cart";
 import Email from "@/components/Email";
+import ProductsProvider from "@/context/ProductContext";
 
 export const metadata = {
   title: "AngkorAi",
@@ -12,6 +13,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
+    <ProductsProvider>
     <html lang="en">
       <Head />
       <body>
@@ -74,5 +76,6 @@ export default function RootLayout({ children }) {
         </div>
       </body>
     </html>
+    </ProductsProvider>
   );
 }
