@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Khmer Temple Art Store
 
-## Getting Started
+An e-commerce website for **Khmer temple-inspired paintings and stickers**, built with **Next.js**, **React Context API**, and **Stripe Checkout**. Users can browse products, add to cart, update quantities, and checkout securely.
 
-First, run the development server:
+---
+
+## 🧠 Big Picture
+
+- **Products**: Paintings and stickers with high-res and low-res images.  
+- **Cart**: Global state using React Context API (`ProductContext`).  
+- **Checkout**: Stripe integration for payments.  
+- **Responsive Design**: Works on mobile, tablet, and desktop.  
+- **Image Banner**: Low-res images load instantly, high-res fade in.  
+- **Sections**: Scroll smoothly to painting or sticker section from banner.
+
+---
+
+## 🛠 Features
+
+### Product Page
+
+- Display paintings and stickers.
+- Add to cart with quantity management.
+- Open high-resolution images in a modal portal.
+
+### Cart Page
+
+- Show all cart items with quantity input.
+- Update cart directly via input field.
+- Display total items and prices.
+- Checkout button integrates with Stripe.
+
+### Checkout
+
+- Sends cart data to backend API `/api/checkout`.
+- Creates Stripe checkout session.
+- Redirects user to Stripe payment page.
+- Handles success and cancel URLs.
+
+### Global State Management
+
+- React Context (`ProductsProvider`) stores cart globally.
+- Any component can read/update cart without prop drilling.
+
+### Responsive UI
+
+- Mobile-first design.
+- Sticky header and banner.
+- Grid-based layout for products.
+- Smooth scroll to sections.
+
+---
+
+## ⚡ Tech Stack
+
+- **Frontend**: Next.js 13+, React 18+, Tailwind CSS (optional styling)
+- **State Management**: React Context API
+- **Backend**: Next.js API routes
+- **Payments**: Stripe API
+- **Images**: Low-res for fast load, high-res for detail
+
+---
+
+
+
+---
+
+## ⚙️ Setup Instructions
+
+1. Clone the repository:
 
 ```bash
+git clone https://github.com/yourusername/khmer-temple-art.git
+cd khmer-temple-art
+
+npm install
+
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
+STRIPE_SECRET_KEY=sk_test_...
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
               <Link href={'/'}>
                 <h1>AngkorAi</h1>
               </Link>
-              <p className="mid-text">Explore Khmer Temple Paintings & Stickers</p>
+              <p className="mid-text">Khmer Temple Paintings & Stickers</p>
               <div className="cart">
                 <Cart />
               </div>
