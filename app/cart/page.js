@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useState } from "react";
 import { useProducts } from "@/context/ProductContext";
@@ -23,6 +23,7 @@ export default function CartPage() {
 
     try {
       setLoading(true);
+
       const baseURL = process.env.NEXT_PUBLIC_BASE_URL || window.location.origin;
 
       const lineItems = Object.keys(cart).map(key => {
@@ -48,7 +49,7 @@ export default function CartPage() {
         return;
       }
 
-      window.location.href = data.url; // Redirect to Stripe checkout
+      window.location.href = data.url; // Redirect to Stripe
     } catch (err) {
       console.error("Checkout error:", err);
       alert("Checkout failed. See console.");
@@ -69,7 +70,6 @@ export default function CartPage() {
   return (
     <section className="cart-section">
       <h2>Your Cart</h2>
-
       <div className="cart-container">
         {Object.keys(cart).map((key, idx) => {
           const item = cart[key];
@@ -120,7 +120,6 @@ export default function CartPage() {
           );
         })}
       </div>
-
       <div className="checkout-container">
         <Link href="/"><button>&larr; Continue Shopping</button></Link>
         <button onClick={createCheckout} disabled={loading}>

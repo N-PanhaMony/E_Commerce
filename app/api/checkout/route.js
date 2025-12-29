@@ -6,20 +6,17 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
 
 export async function POST(request) {
   try {
+    // Read body
     const body = await request.json();
-    console.log("Checkout payload received:", body); // Check payload
     const { totalItems } = body;
 
-    if (!totalItems || !totalItems.length) {
-      return new Response(
-        JSON.stringify({ error: "No items to checkout" }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
-      );
-    }
-
+    // Determine origin: deployed URL or local fallback
     const origin =
-      process.env.NEXT_PUBLIC_BASE_URL || request.headers.get("origin") || "http://localhost:3000";
+      process.env.NEXT_PUBLIC_BASE_URL ||
+      request.headers.get("origin") ||
+      "http://localhost:3000";
 
+    // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
@@ -28,17 +25,15 @@ export async function POST(request) {
       cancel_url: `${origin}/`,
     });
 
-    console.log("Stripe session created:", session);
-
     return new Response(JSON.stringify(session), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
-  } catch (error) {
-    console.error("Error creating Stripe checkout:", error);
-    return new Response(
-      JSON.stringify({ error: "Failed to create checkout" }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
-    );
+  } catch (err) {
+    console.error("Stripe checkout error:", err);
+    return new Response(JSON.stringify({ error: "Failed to create checkout" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 }
