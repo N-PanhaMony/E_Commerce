@@ -8,8 +8,13 @@ export default function ImageBanner() {
     const imgRef = useRef()
 
     useEffect(() => {
+        let rafId
         if (imgRef.current?.complete) {
-            setIsLoaded(true)
+            rafId = requestAnimationFrame(() => setIsLoaded(true))
+        }
+
+        return () => {
+            if (rafId) cancelAnimationFrame(rafId)
         }
     }, [])
 
