@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import { useState } from "react";
 import { useProducts } from "@/context/ProductContext";
@@ -10,6 +10,7 @@ export default function CartPage() {
   const { cart, handleChangeProduct } = useProducts();
   const [loading, setLoading] = useState(false);
 
+  // Calculate total
   const total = Object.keys(cart).reduce((acc, key) => {
     const item = cart[key];
     const priceAmount = item.default_price
@@ -18,14 +19,15 @@ export default function CartPage() {
     return acc + priceAmount * item.quantity;
   }, 0);
 
+  // Checkout function
   async function createCheckout() {
     if (!Object.keys(cart).length) return alert("Cart is empty.");
 
     try {
       setLoading(true);
-
       const baseURL = process.env.NEXT_PUBLIC_BASE_URL || window.location.origin;
 
+      // Build line_items for Stripe
       const lineItems = Object.keys(cart).map(key => {
         const item = cart[key];
         const priceId = item.default_price || item.prices[0].id;
@@ -58,11 +60,13 @@ export default function CartPage() {
     }
   }
 
+  // If cart empty
   if (!Object.keys(cart).length) {
     return (
       <section className="cart-section">
         <h2>Your Cart is Empty 🛒</h2>
         <p>Add paintings or stickers first!</p>
+        <Link href="/"><button>&larr; Go Shopping</button></Link>
       </section>
     );
   }
@@ -70,6 +74,7 @@ export default function CartPage() {
   return (
     <section className="cart-section">
       <h2>Your Cart</h2>
+
       <div className="cart-container">
         {Object.keys(cart).map((key, idx) => {
           const item = cart[key];
@@ -94,10 +99,7 @@ export default function CartPage() {
               />
               <div className="cart-item-info">
                 <h3>{item.name}</h3>
-                <p>
-                  {item.description?.slice(0, 100)}
-                  {item.description?.length > 100 && "..."}
-                </p>
+                <p>{item.description?.slice(0, 100)}{item.description?.length > 100 && "..."}</p>
                 <h4>${(priceAmount / 100).toFixed(2)}</h4>
                 <div className="quantity-container">
                   <p><strong>Quantity</strong></p>
@@ -120,6 +122,7 @@ export default function CartPage() {
           );
         })}
       </div>
+
       <div className="checkout-container">
         <Link href="/"><button>&larr; Continue Shopping</button></Link>
         <button onClick={createCheckout} disabled={loading}>

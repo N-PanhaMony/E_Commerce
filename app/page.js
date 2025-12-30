@@ -1,31 +1,29 @@
 import ImageBanner from "@/components/ImageBanner";
 import Products from "@/components/Products";
 
-// Function to fetch products from API internally
-async function getProducts() {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products`, {
-      cache: "no-store",
-    });
+// Fetch products from internal API safely (SSR-friendly)
+async function getProducts(baseURL) {
+  const res = await fetch(`${baseURL}/api/products`, {
+    cache: "no-store", // always fetch fresh on SSR
+  });
 
-    if (!res.ok) throw new Error("Failed to load products");
+  if (!res.ok) throw new Error("Failed to fetch products");
 
-    return await res.json();
-  } catch (err) {
-    console.error("Product fetch error:", err);
-    return [];
-  }
+  return res.json();
 }
 
-
 export default async function Home() {
-  const products = await getProducts();
+  // Determine the base URL for SSR
+  const baseURL =
+    process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+
+  const products = await getProducts(baseURL);
 
   let painting = null;
   let stickers = [];
 
-  for (let prod of products) {
-    if (prod.name === 'Angkor Wat') {
+  for (const prod of products) {
+    if (prod.name === "Angkor Wat") {
       painting = prod;
       continue;
     }
