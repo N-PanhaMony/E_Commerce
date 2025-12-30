@@ -6,23 +6,19 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
 
 export async function POST(request) {
   try {
-    // Read body
     const body = await request.json();
     const { totalItems } = body;
 
-    // Determine origin: deployed URL or local fallback
-    const origin =
-      process.env.NEXT_PUBLIC_BASE_URL ||
-      request.headers.get("origin") ||
-      "http://localhost:3000";
+    if (!totalItems || !Array.isArray(totalItems) || totalItems.length === 0) {
+      return new Response(JSON.stringify({ error: "No items provided" }), { status: 400 });
+    }
 
-    // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
       line_items: totalItems,
-      success_url: `${origin}/success`,
-      cancel_url: `${origin}/`,
+      success_url: process.env.STRIPE_SUCCESS_URL,
+      cancel_url: process.env.STRIPE_CANCEL_URL,
     });
 
     return new Response(JSON.stringify(session), {
