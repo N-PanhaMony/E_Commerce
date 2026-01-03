@@ -1,4 +1,6 @@
 // app/api/checkout/route.js
+export const runtime = "nodejs"; // ensure full Node.js runtime (required for AWS Stripe SDK)
+
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
@@ -14,17 +16,27 @@ export async function POST(request) {
     const { totalItems } = body;
     if (!totalItems || !totalItems.length) {
       console.error("[Checkout] Error: Cart is empty or invalid.");
-      return new Response(JSON.stringify({ error: "Cart is empty or invalid." }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      });
+      return new Response(
+        JSON.stringify({ error: "Cart is empty or invalid." }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
 
-    // Determine origin and fallback URLs
+    // Detect origin (Vercel or AWS)
+    const requestOrigin = request.headers.get("origin") || "";
+    const allowedOrigins = [
+      "https://e-commerce-next-js-stripe.vercel.app",
+      "https://your-aws-app.amplifyapp.com",
+    ];
+
+    // If the requestOrigin matches allowedOrigins, use it; else fallback to NEXT_PUBLIC_BASE_URL or first allowed
     const origin =
-      process.env.NEXT_PUBLIC_BASE_URL ||
-      request.headers.get("origin") ||
-      "https://e-commerce-next-js-stripe.vercel.app";
+      allowedOrigins.includes(requestOrigin)
+        ? requestOrigin
+        : process.env.NEXT_PUBLIC_BASE_URL || allowedOrigins[0];
 
     const success_url = process.env.STRIPE_SUCCESS_URL || `${origin}/success`;
     const cancel_url = process.env.STRIPE_CANCEL_URL || `${origin}/`;
@@ -50,7 +62,10 @@ export async function POST(request) {
   } catch (err) {
     console.error("[Checkout] Stripe checkout error:", err);
     return new Response(
-      JSON.stringify({ error: "Failed to create checkout session", details: err.message }),
+      JSON.stringify({
+        error: "Failed to create checkout session",
+        details: err.message,
+      }),
       {
         status: 500,
         headers: { "Content-Type": "application/json" },
